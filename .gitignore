@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual env
+.venv/
+venv/
+
+# Benchmark data (normalized is generated)
+data/normalized/
+
+# IDE
+.idea/
+.vscode/
+*.swp

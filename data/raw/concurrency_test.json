@@ -1,0 +1,33 @@
+{
+  "benchmark_date": "2026-10-13",
+  "test_config": {
+    "LLAMA_ARG_MODELS_MAX": 2,
+    "host_ram": "122.8 GB (~71 GB available)",
+    "gpu": "AMD Radeon 8060S (Vulkan)"
+  },
+  "scenario_a_9b_plus_20b": {
+    "models": ["qwen3.5-9b-heretic (5GB)", "gpt-oss-20b-heretic (12GB)"],
+    "total_rss_mb": "~1100 MB",
+    "solo_baselines": {
+      "qwen3.5-9b": "34.4 tok/s",
+      "gpt-oss-20b": "59.4 tok/s"
+    },
+    "concurrent": {
+      "qwen3.5-9b": "24.9 tok/s (28% degradation)",
+      "gpt-oss-20b": "36.3 tok/s (39% degradation)"
+    }
+  },
+  "eviction_behavior": {
+    "rule": "LRU eviction — least recently used model evicted when MAX exceeded",
+    "test_1": "Load qwen3.8 as 3rd → evicted gpt-oss-20b + qwen3.5 (both had requests), kept qwen3.6 + loaded qwen3.8",
+    "test_2": "Retry load qwen3.8 → evicted gpt-oss-20b, kept qwen3.6 + qwen3.8"
+  },
+  "max_concurrent_models": {
+    "with_MAX=2": 2,
+    "notes": "Router strictly enforces LLAMA_ARG_MODELS_MAX=2; 3rd load evicts LRU model(s)"
+  },
+  "concurrency_impact": {
+    "summary": "Both models lose ~30-40% throughput when running concurrently",
+    "cause": "Shared GPU memory bandwidth and compute on single Radeon 8060S"
+  }
+}

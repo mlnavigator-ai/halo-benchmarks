@@ -1,0 +1,18 @@
+[project]
+name = "halo-benchmarks"
+version = "0.1.0"
+description = "LLM inference benchmarks on AMD Strix Halo integrated GPU (Radeon 8060S, UMA)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+]
+
+[project.scripts]
+halo-bench = "benchmarks.runner:main"
+halo-compare = "benchmarks.compare:main"
+halo-analyze = "benchmarks.analyze:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"

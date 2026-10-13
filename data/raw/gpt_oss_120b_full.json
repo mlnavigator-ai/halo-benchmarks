@@ -1,0 +1,56 @@
+{
+  "model": "gpt-oss-120b",
+  "variant": "Huihui gpt-oss-120b abliterated",
+  "quant": "MXFP4_MOE",
+  "file_size_gb": 61,
+  "architecture": "MoE (117B total, ~5.1B active)",
+  "context_window": 131072,
+  "reasoning_format": "none (reasoning_content exposed via API but not structured think tags)",
+  "reasoning_levels": "Not configurable in INI \u2014 reasoning is implicit in output",
+  "parallel_slots": 1,
+  "ctx_size_config": "Not set in INI (defaults to device capacity)",
+  "throughput": {
+    "decode_tok_s": {
+      "short_output_16": 48.3,
+      "short_output_64": 47.6,
+      "medium_output_64": 46.1,
+      "medium_output_256": 45.2,
+      "long_output_64": 45.4,
+      "long_output_256": 45.1
+    },
+    "prefill_tok_s": {
+      "short_prompt_10t": 71.1,
+      "medium_prompt_34t": 119.6,
+      "long_prompt_139t": 202.5
+    },
+    "average_decode_tok_s": "~46",
+    "average_prefill_tok_s": "~130 (scales with prompt length)"
+  },
+  "context_memory": {
+    "752_prompt_tokens": "Correctly retrieved Items 7, 23, 41 from 50-item list",
+    "2693_prompt_tokens": "Correctly retrieved Items 99, 150 from 200-item list"
+  },
+  "reasoning_quality": {
+    "math_17x23": "Correct (391), showed work",
+    "chain_apples": "Correct step-by-step with table",
+    "bat_ball_puzzle": "Correct ($0.05), showed algebra",
+    "code_binary_search": "Good implementation with docstrings"
+  },
+  "memory_footprint": {
+    "weights_on_disk_gb": 61,
+    "estimated_runtime_gb": "~67 (weights + KV cache headroom)",
+    "fits_on_122gb_hardware": "Barely \u2014 leaves ~55GB for OS + other models"
+  },
+  "concurrency_estimate": {
+    "with_qwen3.6-35b-heretic_28gb": "2 models max (61+28=89GB, fits)",
+    "with_qwen3-vl-30b-a3b_18gb": "2 models max (61+18=79GB, fits)",
+    "three_models": "Would need LLAMA_ARG_MODELS_MAX >= 3 and ~107GB"
+  },
+  "notes": [
+    "Reasoning_content is present in API responses but reasoning_format=none in props",
+    "No explicit think/chain-of-thought tags \u2014 reasoning is implicit in the text output",
+    "Model has DRY sampler configured (dry_penalty_last_n=64, dry_base=1.75)",
+    "Mirostat adaptive targeting enabled (tau=5.0, decay=0.9)",
+    "Context memory test passed at 2693 prompt tokens \u2014 well within 131K capacity"
+  ]
+}

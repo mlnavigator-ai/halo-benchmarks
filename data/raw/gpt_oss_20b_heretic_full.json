@@ -1,0 +1,79 @@
+{
+  "model": "gpt-oss-20b-heretic",
+  "variant": "ARA v3 MXFP4_MOE (mradermacher)",
+  "architecture": {
+    "type": "MoE",
+    "total_params": "21B",
+    "active_params": "3.6B",
+    "expert_count": 32,
+    "expert_used": 4,
+    "sliding_window": 128,
+    "max_context": 131072,
+    "kv_heads": 8,
+    "attention_heads": 64,
+    "key_length": 64,
+    "value_length": 64,
+    "blocks": 24
+  },
+  "file": {
+    "name": "gpt-oss-20b-heretic-ara-v3.MXFP4_MOE.gguf",
+    "size_gb": 12,
+    "quantization": "MXFP4_MOE"
+  },
+  "abliteration": {
+    "method": "Heretic ARA v3",
+    "kl_divergence": 0.0554,
+    "refusal_rate": "~3%"
+  },
+  "hardware": {
+    "gpu": "AMD Radeon 8060S Graphics (RADV STRIX_HALO)",
+    "gpu_type": "integrated",
+    "ram_total_gb": 122.8,
+    "ram_available_gb": "~54"
+  },
+  "performance": {
+    "throughput_tok_per_second": {
+      "50_tokens": 52.6,
+      "100_tokens": 57.2,
+      "200_tokens": 58.9,
+      "300_tokens": 57.1,
+      "500_tokens": 57.1,
+      "average": 56.6
+    },
+    "prompt_processing_tok_per_second": "~110-130",
+    "memory_rss_mb": 257,
+    "vm_peak_mb": 16172
+  },
+  "reasoning": {
+    "bat_ball_puzzle": "CORRECT (0.05)",
+    "math_17x23_plus_42": "CORRECT (433)",
+    "fibonacci_code": "GENERATED ITERATIVE IMPLEMENTATION",
+    "reasoning_format": "Harmony format with analysis/final channels"
+  },
+  "context_window": {
+    "theoretical_max_tokens": 131072,
+    "effective_attention_window": 128,
+    "retrieval_5_items": "CORRECT",
+    "note": "SWA=128 limits attention to last 128 tokens; retrieval degrades beyond small contexts"
+  },
+  "comparison": {
+    "vs_qwen3.8-27b-uncensored": {
+      "speed_multiplier": "~4.7x faster (56.6 vs 12 tok/s)",
+      "size_ratio": "0.8x smaller (12 vs 15 GB file)",
+      "reasoning_quality": "stronger - passes all reasoning tests",
+      "active_params": "3.6B vs 27B dense"
+    },
+    "vs_gpt-oss-120b": {
+      "speed_multiplier": "~4.7x faster (56.6 vs ~12 tok/s estimated)",
+      "size_ratio": "0.2x (12 vs 59 GB)",
+      "active_params": "3.6B active (vs 120B dense)"
+    }
+  },
+  "concurrency_notes": {
+    "vm_peak_mb": 16172,
+    "rss_mb": 257,
+    "gpu_memory": "loaded on integrated GPU with UMA",
+    "max_simultaneous": "2 under LLAMA_ARG_MODELS_MAX (same as all configs)",
+    "ram_budget_per_model": "~16GB VM peak, ~257MB RSS"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "model": "qwen3.8-27b-uncensored",
+  "quant": "IQ4_XS",
+  "file_size": "15 GB",
+  "architecture": "Dense hybrid Gated DeltaNet + attention, ~27B params",
+  "throughput": {
+    "50_tokens": "12.1 tok/s",
+    "200_tokens": "12.0 tok/s", 
+    "500_tokens": "12.0 tok/s"
+  },
+  "context_window_test": {
+    "prompt_tokens": 9046,
+    "items_stored": 500,
+    "retrieval_42": "qwiua - The silver phoenix of chamber 714",
+    "retrieval_127": "xrftn - The bronze griffin of chamber 161", 
+    "retrieval_256": "woyia - The bronze dragon of chamber 356",
+    "retrieval_499": "fpjdn"
+  },
+  "reasoning": {
+    "bat_and_ball": "Partial reasoning shown, answer incomplete (said 'x + (x + $1.00) = $' but didn't complete)",
+    "math_17x23_42": "393 (WRONG, correct: 433)",
+    "code_fibonacci": "Incomplete - missing logic, only has base cases"
+  },
+  "memory_rss": "~4066 MB",
+  "concurrency": "2 models max (LLAMA_ARG_MODELS_MAX=2)"
+}

@@ -1,0 +1,66 @@
+{
+  "model": "qwen3.5-9b-heretic",
+  "quant": "Q4_K_M",
+  "file_size": "5.2 GB (5,527,953,952 bytes)",
+  "sha256": "8d463c63e2c8759ad263cba59f1fa7a0be9a7cacb59b0fd0a787b7daa31597ad",
+  "benchmark_date": "2026-10-13",
+  "architecture": {
+    "type": "Hybrid dense/SSM (qwen35)",
+    "total_params": "~8.8B",
+    "vocab_size": 248320,
+    "n_embd": 4096,
+    "max_context": 262144,
+    "swa": false,
+    "reasoning_format": "deepseek (think tags)"
+  },
+  "heretic": {
+    "method": "Heretic v1.2.0, Arbitrary-Rank Ablation (ARA) v2",
+    "kl_divergence": 0.0241,
+    "refusal_rate": "4/100 (original 86/100)"
+  },
+  "throughput": {
+    "avg_tok_s": 34.3,
+    "range_tok_s": "34.1 - 35.2",
+    "prompt_processing_tok_s": "~85 tok/s (first prompt), ~850+ tok/s cached",
+    "details": [
+      {"predict": 16, "tok_s": 35.2},
+      {"predict": 64, "tok_s": 34.4},
+      {"predict": 128, "tok_s": 34.3},
+      {"predict": 256, "tok_s": 34.4},
+      {"predict": 512, "tok_s": 34.2}
+    ]
+  },
+  "memory": {
+    "rss_peak_mb": "~940 MB",
+    "model_file_mb": "~5100 MB"
+  },
+  "reasoning_tests": {
+    "bat_and_ball": {"answer": "$0.05", "correct": true},
+    "math_17x23plus42": {"answer": "433", "correct": true},
+    "fibonacci_code": {"pass": true, "has_def": true, "has_docstring": true, "has_type_hint": true},
+    "sheep_riddle": {"answer": "9", "correct": true}
+  },
+  "context_window": {
+    "#7_of_10": {"answer": "7", "correct": true},
+    "#25_of_50": {"contains_25": true, "last_numbers_seen": ["25", "3", "25"]}
+  },
+  "reasoning_quality": {
+    "format": "deepseek think tags (reasoning_content field)",
+    "content_field": "empty when reasoning enabled (same as qwen3.8 pattern)",
+    "structured_reasoning": false,
+    "verification_steps": true,
+    "notes": "Model produces extended reasoning but not step-numbered structure; includes verification in math/bat-ball tests"
+  },
+  "comparison": {
+    "vs_qwen3_8_uncensored": {
+      "speed": "2.9x faster (34 vs 12 tok/s)",
+      "reasoning": "Stronger reasoning, passes all tests",
+      "memory": "5.2 GB vs ~15 GB"
+    },
+    "vs_gpt_oss_20b_heretic": {
+      "speed": "1.7x slower (34 vs 57 tok/s)",
+      "reasoning": "Similar reasoning quality, both pass all tests",
+      "memory": "5.2 GB vs 12 GB"
+    }
+  }
+}
